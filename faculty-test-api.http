@@ -1,0 +1,48 @@
+
+## POST Add an item in faculty
+# POST http://localhost:5000/api/faculty
+# Content-Type: application/json
+
+# {
+#   "name": "Syed Ali Raza Shah",
+#   "position": "Senior Graphics Designer",
+#   "description": "Syed Ali Raza Shah is a highly skilled graphics designer with a passion for creating visually stunning designs. He has a Bachelor's degree in Fine Arts and over 8 years of experience in the field. His expertise includes branding, digital marketing, and user interface design. Ali is known for his innovative approach and ability to bring concepts to life through his designs.",
+#   "imgSrc": "/images/faculty/ahmed.jpg",
+#   "qualification": "Bachelor's in Computer Science",
+#   "experience": "8 years in graphics design and digital marketing"
+# }
+
+
+
+
+### Get all  faculty Items
+# GET http://localhost:5000/api/faculty
+
+
+
+
+
+## PUT update an item in faculty
+# PUT  http://localhost:5000/api/faculty
+# Content-Type: application/json
+
+# {
+#   "id": "683ea60efdb7efa959dca071",
+#   "name": "Hafiz Saab",
+#   "position": "Director GIST",
+#   "description": "Hafiz Qadir Bux is a distinguished faculty member with a rich background in Islamic studies. He holds a degree in Islamic Theology and has over 10 years of teaching experience. His expertise lies in Quranic studies and Hadith, and he is known for his engaging teaching style and deep understanding of Islamic jurisprudence.",
+#   "imgSrc": "/images/faculty/abid.jpg",
+#   "qualification": "Master's in Islamic Theology",
+#   "experience": "10 years in Islamic studies and Quranic education"
+# }
+
+
+
+
+## Delete an item from faculty
+# DELETE  http://localhost:5000/api/faculty
+# Content-Type: application/json
+
+# {
+#   "id": "683ea4fdfdb7efa959dca06b"
+# }
