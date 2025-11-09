@@ -4,9 +4,16 @@ const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
 exports.getFaculty = async (req, res, next) => {
   const facultyList = await Faculty.find();
   // console.log("our faculty is : ", facultyList);
+  // facultyList.map((faculty) => {
+  //   faculty.imgSrc = `${BASE_URL}/uploads/${faculty.imgSrc}`;
+  // });
   facultyList.map((faculty) => {
-    faculty.imgSrc = `${BASE_URL}/uploads/${faculty.imgSrc}`;
-  });
+  if (faculty.imgSrc) {
+    // Remove any accidental newline
+    const cleanFileName = faculty.imgSrc.replace(/\n/g, '').split('/').pop();
+    faculty.imgSrc = `${BASE_URL}/uploads/${cleanFileName}`;
+  }
+});
   res.status(200).json({
     status: "success",
     results: facultyList.length,
