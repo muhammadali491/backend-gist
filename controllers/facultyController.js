@@ -1,5 +1,6 @@
 const Faculty = require("../models/facultyModel");
-const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
+// const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
+const BASE_URL = (process.env.BASE_URL || "http://localhost:5000").trim();
 // get all items from Faculty
 exports.getFaculty = async (req, res, next) => {
   const facultyList = await Faculty.find();
