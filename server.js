@@ -10,10 +10,11 @@ const adminRouter = require("./routes/adminRouter");
 const app = express();
 
 // middlewares
-app.use(cors());
-// app.use(cors({
-//   origin: ["http://localhost:5173/", "https://your-frontend-domain.com"], // add deployed frontend URL later
-// }));
+// app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:5173", "https://your-frontend-domain.com"], // add deployed frontend URL later
+  methods: ['GET'],
+}));
 app.use(express.json());
 // uploading file
 app.use("/uploads", cors(), express.static("uploads"));
