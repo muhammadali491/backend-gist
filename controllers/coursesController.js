@@ -1,6 +1,5 @@
 const Courses = require("../models/coursesModel");
-// const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
-const BASE_URL = (process.env.BASE_URL || "http://localhost:5000").trim();
+const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
 // get all items from Courses
 exports.getCourses = async (req, res, next) => {
   try {
