@@ -1,5 +1,5 @@
 const express = require("express");
-// const cors = require("cors");
+const cors = require("cors");
 require("dotenv").config();
 const mongoose = require("mongoose");
 // routes import
@@ -11,11 +11,10 @@ const app = express();
 
 // middlewares
 // app.use(cors());
-// app.use(cors({
-//   origin: ["http://localhost:5173", "https://your-frontend-domain.com"], // add deployed frontend URL later
-// }));
+app.use(cors({
+  origin: ["http://localhost:5173/", "https://your-frontend-domain.com"], // add deployed frontend URL later
+}));
 app.use(express.json());
-
 // uploading file
 app.use("/uploads", express.static("uploads"));
 
