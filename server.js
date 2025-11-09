@@ -30,6 +30,13 @@ app.use(express.json());
 // app.use("/uploads", cors(), express.static("uploads"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+app.get("/check-uploads", (req, res) => {
+  const fs = require("fs");
+  const path = require("path");
+  const uploads = fs.readdirSync(path.join(__dirname, "uploads"));
+  res.json(uploads);
+});
+
 // routes
 app.use("/api/gallery", galleryRouter);
 app.use("/api/faculty", facultyRouter);
