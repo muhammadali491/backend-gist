@@ -14,6 +14,7 @@ const app = express();
 app.use(cors({
   origin: ["http://localhost:5173", "https://your-frontend-domain.com"], // add deployed frontend URL later
   methods: ['GET'],
+   credentials: true,
 }));
 app.use(express.json());
 // uploading file
