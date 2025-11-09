@@ -22,8 +22,7 @@ const app = express();
 // middlewares
 // app.use(cors());
 app.use(cors({
-  origin: ["http://localhost:5173", "https://your-frontend-domain.com"], // add deployed frontend URL later
-  methods: ['GET'],
+  origin: ["*"], // add deployed frontend URL later
    credentials: true,
 }));
 app.use(express.json());
