@@ -1,5 +1,6 @@
 const Gallery = require("../models/galleryModel");
-const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
+// const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
+const BASE_URL = (process.env.BASE_URL || "http://localhost:5000").trim();
 
 // get all items from Gallery
 exports.getGallery = async (req, res, next) => {
