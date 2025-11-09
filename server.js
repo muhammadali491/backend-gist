@@ -16,7 +16,7 @@ app.use(cors());
 // }));
 app.use(express.json());
 // uploading file
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", cors(), express.static("uploads"));
 
 // routes
 app.use("/api/gallery", galleryRouter);
