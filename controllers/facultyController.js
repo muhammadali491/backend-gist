@@ -4,17 +4,17 @@ const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
 exports.getFaculty = async (req, res, next) => {
   const facultyList = await Faculty.find();
   // console.log("our faculty is : ", facultyList);
-  // facultyList.map((faculty) => {
-  //   faculty.imgSrc = `${BASE_URL}/uploads/${faculty.imgSrc}`;
-  // });
- 
   facultyList.map((faculty) => {
-  if (faculty.imgSrc) {
-    // Remove newlines and get only the filename
-    const fileName = faculty.imgSrc.replace(/\n/g, '').split('/').pop();
-    faculty.imgSrc = `${BASE_URL}/uploads/${fileName}`;
-  }
-});
+    faculty.imgSrc = `${BASE_URL}/uploads/${faculty.imgSrc}`;
+  });
+ 
+//   facultyList.map((faculty) => {
+//   if (faculty.imgSrc) {
+//     // Remove newlines and get only the filename
+//     const fileName = faculty.imgSrc.replace(/\n/g, '').split('/').pop();
+//     faculty.imgSrc = `${BASE_URL}/uploads/${fileName}`;
+//   }
+// });
   res.status(200).json({
     status: "success",
     results: facultyList.length,
