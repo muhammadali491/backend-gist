@@ -1,3 +1,13 @@
+const fs = require("fs");
+const path = require("path");
+
+// Ensure uploads folder exists in production
+const uploadsPath = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadsPath)) {
+  fs.mkdirSync(uploadsPath, { recursive: true });
+}
+
+
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
@@ -18,7 +28,8 @@ app.use(cors({
 }));
 app.use(express.json());
 // uploading file
-app.use("/uploads", cors(), express.static("uploads"));
+// app.use("/uploads", cors(), express.static("uploads"));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // routes
 app.use("/api/gallery", galleryRouter);
