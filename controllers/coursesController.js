@@ -1,11 +1,13 @@
 const Courses = require("../models/coursesModel");
-const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
 // get all items from Courses
 exports.getCourses = async (req, res, next) => {
   try {
     const coursesList = await Courses.find();
     coursesList.map((course) => {
-      course.image = `${BASE_URL}/uploads/${course.image}`;
+      course.image = course.image.replace(
+        "/upload/",
+        `/upload/w_400,q_auto,f_auto/`
+      );
     });
     res.status(200).json({
       status: "success",
@@ -32,7 +34,7 @@ exports.addCourses = async (req, res, next) => {
       intro: req.body.intro,
       description: req.body.description,
       duration: req.body.duration,
-      image: req.file ? req.file.filename : null,
+      image: req.file ? req.file.path : null,
     });
     const newItem = await coursesItem.save();
     res.status(201).json(newItem);
@@ -70,12 +72,6 @@ exports.deleteCourses = async (req, res, next) => {
 // update CoursesItem
 exports.updateCourses = async (req, res, next) => {
   try {
-    console.log("BACKEND HIT: Course UPDATE FACULTY");
-    console.log("PARAMS:", req.params);
-    console.log("BODY:", req.body);
-    console.log("FILE:", req.file);
-    console.log("Starting Course update");
-
     const coursesId = req.params.id;
     const updatedData = {
       title: req.body.title,
@@ -87,7 +83,7 @@ exports.updateCourses = async (req, res, next) => {
       // image: req.body.image,
     };
     if (req.file) {
-      updatedData.image = req.file.filename;
+      updatedData.image = req.file.path;
     }
     const updatedItem = await Courses.findByIdAndUpdate(
       coursesId,

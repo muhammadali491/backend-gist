@@ -1,20 +1,15 @@
 const Faculty = require("../models/facultyModel");
-const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
 // get all items from Faculty
 exports.getFaculty = async (req, res, next) => {
   const facultyList = await Faculty.find();
-  // console.log("our faculty is : ", facultyList);
-  facultyList.map((faculty) => {
-    faculty.imgSrc = `${BASE_URL}/uploads/${faculty.imgSrc}`;
+  // let memberList = facultyList;
+  facultyList.map((member) => {
+    member.imgSrc = member.imgSrc.replace(
+      "/upload/",
+      `/upload/w_400,q_auto,f_auto/`
+    );
   });
- 
-//   facultyList.map((faculty) => {
-//   if (faculty.imgSrc) {
-//     // Remove newlines and get only the filename
-//     const fileName = faculty.imgSrc.replace(/\n/g, '').split('/').pop();
-//     faculty.imgSrc = `${BASE_URL}/uploads/${fileName}`;
-//   }
-// });
+
   res.status(200).json({
     status: "success",
     results: facultyList.length,
@@ -33,7 +28,7 @@ exports.addFaculty = async (req, res) => {
       qualification: req.body.qualification,
       experience: req.body.experience,
       description: req.body.description,
-      imgSrc: req.file ? req.file.filename : null, // <-- file name stored
+      imgSrc: req.file ? req.file.path : null, // <-- file name stored
     });
 
     const newItem = await facultyItem.save();
@@ -42,19 +37,6 @@ exports.addFaculty = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
-// exports.addFaculty = async (req, res, next) => {
-//   const facultyItem = new Faculty({
-//     name: req.body.name,
-//     position: req.body.position,
-//     description: req.body.description,
-//     imgSrc: req.body.imgSrc,
-//     qualification: req.body.qualification,
-//     experience: req.body.experience,
-//   });
-//   const newItem = await facultyItem.save();
-//   res.status(201).json(newItem);
-// };
 
 // delete an item from Faculty
 exports.deleteFaculty = async (req, res, next) => {
@@ -74,12 +56,6 @@ exports.deleteFaculty = async (req, res, next) => {
 
 // update FacultyItem
 exports.updateFaculty = async (req, res, next) => {
-  console.log("BACKEND HIT: UPDATE FACULTY");
-
-  // console.log("PARAMS:", req.params);
-  // console.log("BODY:", req.body);
-  // console.log("FILE:", req.file);
-  console.log("Starting update");
   const facultyId = req.params.id; // now from URL, not body
 
   const updatedData = {
@@ -92,7 +68,7 @@ exports.updateFaculty = async (req, res, next) => {
 
   // If a new image was uploaded, update imgSrc
   if (req.file) {
-    updatedData.imgSrc = req.file.filename;
+    updatedData.imgSrc = req.file.path;
   }
 
   const updatedItem = await Faculty.findByIdAndUpdate(facultyId, updatedData, {
@@ -114,35 +90,3 @@ exports.updateFaculty = async (req, res, next) => {
     },
   });
 };
-
-// exports.updateFaculty = async (req, res, next) => {
-//   console.log("Starting update");
-//   const facultyId = req.body._id;
-//   const updatedData = {
-//     name: req.body.name,
-//     position: req.body.position,
-//     description: req.body.description,
-//     imgSrc: req.body.imgSrc,
-//     qualification: req.body.qualification,
-//     experience: req.body.experience,
-//   };
-//   console.log("Updating Faculty with ID:", facultyId);
-//   const updatedItem = await Faculty.findByIdAndUpdate(facultyId, updatedData, {
-//     new: true,
-//     runValidators: true,
-//   });
-//   console.log("Updated Item:", updatedItem);
-//   if (!updatedItem) {
-//     return res.status(404).json({
-//       status: "fail",
-//       message: "Faculty item not found",
-//     });
-//   }
-//   console.log("Update successful");
-//   res.status(200).json({
-//     status: "success",
-//     data: {
-//       faculty: updatedItem,
-//     },
-//   });
-// };

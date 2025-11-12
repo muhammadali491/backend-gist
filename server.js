@@ -1,13 +1,3 @@
-const fs = require("fs");
-const path = require("path");
-
-// Ensure uploads folder exists in production
-const uploadsPath = path.join(__dirname, "uploads");
-if (!fs.existsSync(uploadsPath)) {
-  fs.mkdirSync(uploadsPath, { recursive: true });
-}
-
-
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
@@ -20,22 +10,13 @@ const adminRouter = require("./routes/adminRouter");
 const app = express();
 
 // middlewares
-// app.use(cors());
-app.use(cors({
-  origin: ["*"], // add deployed frontend URL later
-   credentials: true,
-}));
+app.use(
+  cors({
+    origin: process.env.ORIGION, // add deployed frontend URL later
+    credentials: true,
+  })
+);
 app.use(express.json());
-// uploading file
-// app.use("/uploads", cors(), express.static("uploads"));
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-app.get("/check-uploads", (req, res) => {
-  const fs = require("fs");
-  const path = require("path");
-  const uploads = fs.readdirSync(path.join(__dirname, "uploads"));
-  res.json(uploads);
-});
 
 // routes
 app.use("/api/gallery", galleryRouter);
@@ -44,6 +25,7 @@ app.use("/api/courses", coursesRouter);
 app.use("/api/admin", adminRouter);
 
 const Admin = require("./models/adminModel");
+const Faculty = require("./models/facultyModel");
 
 // make new admin
 // const seedAdmin = async () => {
@@ -53,7 +35,6 @@ const Admin = require("./models/adminModel");
 //   console.log("Admin created");
 //   process.exit();
 // };
-
 // seedAdmin();
 
 // connect to MongoDB
