@@ -1,5 +1,5 @@
-"node_modules" 
-"courses-test-api.http"
-"courses-test-api.http"
-"gallery-test-api.http"
-".env"
+node_modules 
+courses-test-api.http
+courses-test-api.http
+gallery-test-api.http
+.env
