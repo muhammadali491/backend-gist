@@ -7,6 +7,9 @@ const galleryRouter = require("./routes/galleryRouter");
 const facultyRouter = require("./routes/facultyRouter");
 const coursesRouter = require("./routes/coursesRouter");
 const adminRouter = require("./routes/adminRouter");
+const Admin = require("./models/adminModel");
+const Faculty = require("./models/facultyModel");
+const joinRouter = require("./routes/joinRouter");
 const app = express();
 
 // middlewares
@@ -23,9 +26,7 @@ app.use("/api/gallery", galleryRouter);
 app.use("/api/faculty", facultyRouter);
 app.use("/api/courses", coursesRouter);
 app.use("/api/admin", adminRouter);
-
-const Admin = require("./models/adminModel");
-const Faculty = require("./models/facultyModel");
+app.use("/api/join", joinRouter);
 
 // make new admin
 // const seedAdmin = async () => {
